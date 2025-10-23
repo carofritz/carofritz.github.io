@@ -8,15 +8,27 @@
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
-      background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?fit=crop&w=1950&q=80') no-repeat center center fixed;
-      background-size: cover;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/0/00/Center_of_the_Milky_Way_Galaxy_IV_%E2%80%93_Composite.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    /* Optional overlay for readability */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); /* dark overlay */
+      z-index: 0;
     }
 
     .card {
+      position: relative; /* above overlay */
       background: rgba(0,0,0,0.6);
       color: white;
       padding: 2rem 3rem;
@@ -24,13 +36,16 @@
       text-align: center;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
       max-width: 350px;
+      width: 90%;
+      z-index: 1;
     }
 
-    .card h1 {
+    h1 {
       margin-bottom: 1rem;
+      font-size: 1.8rem;
     }
 
-    .card a {
+    a.button {
       display: inline-block;
       margin-top: 1rem;
       padding: 0.8rem 1.5rem;
@@ -41,16 +56,73 @@
       transition: 0.3s;
     }
 
-    .card a:hover {
+    a.button:hover {
       background: #ff3b3b;
+    }
+
+    select {
+      margin-top: 1rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    /* Responsive text scaling */
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      .card {
+        padding: 1.5rem 2rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Carolina Fritz</h1>
-    <p>Welcome to my GitHub!</p>
-    <a href="https://github.com/carofritz" target="_blank">View GitHub</a>
+    <h1 id="welcome-title">Welcome!</h1>
+    <a id="github-button" class="button" href="https://github.com/carofritz" target="_blank">View GitHub</a>
+    <br>
+    <select id="lang-selector">
+      <option value="auto">🌐 Auto</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
   </div>
+
+  <script>
+    const texts = {
+      en: {
+        title: "Welcome to my GitHub!",
+        button: "View GitHub"
+      },
+      es: {
+        title: "¡Bienvenido a mi GitHub!",
+        button: "Ver GitHub"
+      }
+    };
+
+    const titleEl = document.getElementById("welcome-title");
+    const buttonEl = document.getElementById("github-button");
+    const selector = document.getElementById("lang-selector");
+
+    function setLanguage(lang) {
+      if (lang === "auto") {
+        const userLang = navigator.language || navigator.userLanguage;
+        lang = userLang.startsWith("es") ? "es" : "en";
+      }
+      titleEl.textContent = texts[lang].title;
+      buttonEl.textContent = texts[lang].button;
+    }
+
+    // Detect on load
+    setLanguage("auto");
+
+    // Manual selector
+    selector.addEventListener("change", () => {
+      setLanguage(selector.value);
+    });
+  </script>
 </body>
 </html>
