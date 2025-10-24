@@ -60,6 +60,18 @@
       background: #ff3b3b;
     }
 
+    /* Center LinkedIn badge */
+    #linkedin-container {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    /* Hide injected text link above the badge */
+    .badge-base__link {
+      display: none !important;
+    }
+
     select {
       margin-top: 1rem;
       padding: 0.4rem 0.6rem;
@@ -85,20 +97,17 @@
 
     <!-- GitHub button -->
     <a id="github-button" class="button" href="https://github.com/carofritz" target="_blank">View GitHub</a>
-    <br><br>
 
     <!-- LinkedIn badge (dark theme) -->
-    <div class="badge-base LI-profile-badge"
-         data-locale="es_ES"
-         data-size="medium"
-         data-theme="dark"
-         data-type="VERTICAL"
-         data-vanity="carolinafritz"
-         data-version="v1">
-      <a class="badge-base__link LI-simple-link"
-         href="https://ar.linkedin.com/in/carolinafritz?trk=profile-badge">Carolina Fritz</a>
+    <div id="linkedin-container">
+      <div class="badge-base LI-profile-badge"
+           data-locale="es_ES"
+           data-size="medium"
+           data-theme="dark"
+           data-type="VERTICAL"
+           data-vanity="carolinafritz"
+           data-version="v1"></div>
     </div>
-    <br>
 
     <!-- Language selector -->
     <select id="lang-selector">
